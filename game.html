@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stone Paper Scissors Game</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #121212;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 2.5rem;
+      color: #00e5ff;
+    }
+
+    .choices {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .choice {
+      font-size: 60px;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .choice:hover {
+      transform: scale(1.2);
+    }
+
+    .result {
+      font-size: 1.5rem;
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .scores {
+      margin-top: 10px;
+      font-size: 1.2rem;
+    }
+
+    .emoji-label {
+      text-align: center;
+      font-size: 1rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>✊ 📄 ✌️ Stone Paper Scissors</h1>
+
+  <div class="choices">
+    <div onclick="play('rock')" class="choice">✊<div class="emoji-label">Stone</div></div>
+    <div onclick="play('paper')" class="choice">📄<div class="emoji-label">Paper</div></div>
+    <div onclick="play('scissors')" class="choice">✌️<div class="emoji-label">Scissors</div></div>
+  </div>
+
+  <div class="result" id="result">Make your move!</div>
+  <div class="scores" id="scores">You: 0 | Computer: 0</div>
+
+  <script>
+    const choices = ['rock', 'paper', 'scissors'];
+    const emojis = {
+      rock: '✊',
+      paper: '📄',
+      scissors: '✌️'
+    };
+    let userScore = 0;
+    let compScore = 0;
+
+    function play(userChoice) {
+      const compChoice = choices[Math.floor(Math.random() * 3)];
+      let resultText = '';
+
+      if (userChoice === compChoice) {
+        resultText = `It's a draw! You both chose ${emojis[userChoice]}`;
+      } else if (
+        (userChoice === 'rock' && compChoice === 'scissors') ||
+        (userChoice === 'paper' && compChoice === 'rock') ||
+        (userChoice === 'scissors' && compChoice === 'paper')
+      ) {
+        userScore++;
+        resultText = `You Win! ${emojis[userChoice]} beats ${emojis[compChoice]}`;
+      } else {
+        compScore++;
+        resultText = `You Lose! ${emojis[compChoice]} beats ${emojis[userChoice]}`;
+      }
+
+      document.getElementById('result').innerText = resultText;
+      document.getElementById('scores').innerText = `You: ${userScore} | Computer: ${compScore}`;
+    }
+  </script>
+
+</body>
+</html>
